@@ -1,0 +1,27 @@
+{
+  "name": "dhzgit",
+  "version": "1.0.0",
+  "description": "",
+  "homepage": "https://github.com/dhzdhd/dhzgit#readme",
+  "bugs": {
+    "url": "https://github.com/dhzdhd/dhzgit/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dhzdhd/dhzgit.git"
+  },
+  "license": "MIT",
+  "author": "dhzdhd",
+  "type": "module",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "build": "gleam build --target javascript",
+    "bundle": "esbuild build/dev/javascript/dhzgit/dhzgit.mjs --platform=node --minify-whitespace --minify-syntax --bundle --outfile=bundle.cjs --format=cjs --footer:js=\"main();\"",
+    "test": "gleam test"
+  },
+  "devDependencies": {
+    "esbuild": "0.25.2"
+  }
+}
