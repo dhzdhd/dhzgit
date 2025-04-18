@@ -2,20 +2,37 @@ name: Build and Deploy
 
 on:
   push:
-    branches:
-      - master
+    tags:
+      - "v*.*.*"
 
 jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-      - uses: erlef/setup-beam@v1
+      - name: Setup Gleam
+        uses: erlef/setup-beam@v1
         with:
           otp-version: "27.1.2"
           gleam-version: "1.9.1"
           rebar3-version: "3"
-          # elixir-version: "1"
 
+      - name: Setup bun
+        uses: oven-sh/setup-bun@v2
+
+      - name: Build project
+        run: gleam build --target javascript
+
+      - name: Package to executable
+        run: bun build --compile --outfile=dhzgit build/dev/javascript/dhzgit/dhzgit.mjs --footer="main();"
       
+      - name: Create a release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ github.ref }}
+          prerelease: true
+          generate_release_notes: true
+          files: |
+            dhzgit

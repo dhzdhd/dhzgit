@@ -4,5 +4,6 @@
 erl_crash.dump
 
 ./dhzgit
-bundle.cjs
+bundle.*
+bundle
 node_modules
