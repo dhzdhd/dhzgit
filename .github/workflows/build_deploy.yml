@@ -51,7 +51,7 @@ jobs:
 
       - name: Package to macos executable
         if: matrix.os == 'macos-latest'
-        run: bun build --compile --outfile=dhzgit.app build/dhzgit/dhzgit.mjs --footer="main();"
+        run: bun build --compile --outfile=dhzgit.dmg build/dhzgit/dhzgit.mjs --footer="main();"
       
       - name: Package to windows executable
         if: matrix.os == 'windows-latest'
