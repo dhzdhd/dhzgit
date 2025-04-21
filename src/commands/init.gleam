@@ -11,11 +11,17 @@ pub fn cmd_init(raw_path: String, force: Bool) -> Result(Repository, AppError) {
     fs.is_directory(path)
     |> result.map_error(fn(err) {
       error.FileSystemError(case err {
-        fs.Eacces -> ""
+        fs.Eacces -> "Permission denied"
+        fs.Eisdir -> ""
         _ -> ""
       })
     }),
   )
+
+  case is_dir && force {
+    True -> ""
+    False -> ""
+  }
 
   Ok(Repository("", "", ""))
 }
